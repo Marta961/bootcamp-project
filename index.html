@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow - Gestión de Tareas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Título -->
+    <header>
+        <h1>TaskFlow <br><em>Gestión de Tareas</em></h1>
+    </header>
+
+    <!-- Contenido principal -->
+    <main>
+        <!-- 1. Listado de tareas (primer apartado)-->
+        <section class="task-list">
+            <h2>Listado de tareas</h2>
+            <ul id="tasks-container">
+                <!-- Las tareas se añadirán aquí con JavaScript -->
+                <li class="empty-state">No hay tareas aún. ¡Añade una!</li>
+            </ul>
+        </section>
+
+        <!-- 2. Estadísticas (segundo apartado) -->
+        <!-- Aunque es un <aside>, al no tener float/flex lateral, se colocará en el flujo normal -->
+        <aside class="stats-panel">
+            <h2>Estadísticas</h2>
+            <div class="stat-item">
+                <span>Completadas:</span>
+                <strong id="completed-count">0</strong>
+            </div>
+            <div class="stat-item">
+                <span>Pendientes:</span>
+                <strong id="pending-count">0</strong>
+            </div>
+        </aside>
+
+        <!-- 3. Formulario (tercer apartado) -->
+        <section class="task-form">
+            <form id="task-form">
+                <label for="task-input">Añadir sugerencías de mejora:</label>
+                <input type="text" id="task-input" placeholder="Escribe una sugerencia para mejorar :)" required>
+                <button type="submit">Añadir</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Pie de página -->
+    <footer>
+        <p>&copy; 2026 TaskFlow</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
