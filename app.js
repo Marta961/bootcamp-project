@@ -429,7 +429,7 @@ function importData(file) {
     reader.readAsText(file);
 }
 
-// Verificar disponibilidad al iniciar
+// Verificar la disponibilidad al iniciar
 if (!isLocalStorageAvailable()) {
     console.warn('⚠️ LocalStorage no está disponible. Los datos no se guardarán.');
     alert('LocalStorage no está disponible. Algunos datos podrían perderse al recargar.');
