@@ -250,28 +250,148 @@ button:focus {
     outline-offset: 2px;
 }
 
-/* RESPONSIVE (MEDIA QUERIES) */
+/* RESPONSIVE DESIGN (MEDIA QUERIES) */
+
+/* Tablets y pantallas medianas (hasta 1024px) */
+@media (max-width: 1024px) {
+    main {
+        max-width: 90%;
+        padding: var(--spacing-lg);
+    }
+    
+    header h1 {
+        font-size: 1.75rem;
+    }
+}
+
+/* Móviles (hasta 768px) */
 @media (max-width: 768px) {
+    /* Título */
+    header {
+        padding: var(--spacing-md);
+    }
+    
     header h1 {
         font-size: 1.5rem;
     }
     
-    main {
-        padding: var(--spacing-md);
+    header p {
+        font-size: var(--font-size-sm);
     }
     
+    /* Layout principal - cambiar a columna única */
+    main {
+        padding: var(--spacing-md);
+        gap: var(--spacing-md);
+    }
+    
+    /* Secciones con ancho completo */
+    section, aside {
+        padding: var(--spacing-md);
+        width: 100%;
+    }
+    
+    /* Lista de tareas - botones en fila completa */
     .task-item {
         flex-direction: column;
         align-items: flex-start;
         gap: var(--spacing-sm);
     }
     
+    .task-content {
+        width: 100%;
+    }
+    
     .task-actions {
         width: 100%;
         justify-content: flex-end;
+        gap: var(--spacing-xs);
+    }
+    
+    .task-actions button {
+        padding: var(--spacing-sm);
+        min-width: 40px;
+    }
+    
+    /* Estadísticas - ajustar */
+    .stats-panel {
+        border-left: none;
+        border-top: 4px solid var(--color-primary);
+        order: 2; /* Estadísticas después de la lista */
+    }
+    
+    /* Formulario - inputs a ancho completo */
+    .task-form form {
+        flex-direction: column;
     }
     
     .task-form input[type="text"] {
         width: 100%;
+        padding: var(--spacing-md);
+    }
+    
+    .task-form button[type="submit"] {
+        width: 100%;
+        padding: var(--spacing-md);
+    }
+    
+    /* Estadísticas - apilar verticalmente */
+    .stat-item {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: var(--spacing-sm);
+    }
+}
+
+/* Móviles muy pequeños (hasta 480px) */
+@media (max-width: 480px) {
+    body {
+        font-size: 14px;
+    }
+    
+    header h1 {
+        font-size: 1.25rem;
+    }
+    
+    section h2, aside h2 {
+        font-size: var(--font-size-base);
+    }
+    
+    .task-item {
+        padding: var(--spacing-sm);
+    }
+    
+    .task-title {
+        font-size: var(--font-size-sm);
+    }
+    
+    .task-actions button {
+        font-size: 12px;
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+}
+
+/* Pantallas grandes (más de 1200px) */
+@media (min-width: 1200px) {
+    main {
+        max-width: 1200px;
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: var(--spacing-lg);
+        align-items: start;
+    }
+    
+    .task-list {
+        grid-column: 1 / 2;
+    }
+    
+    .stats-panel {
+        grid-column: 2 / 3;
+        position: sticky;
+        top: var(--spacing-lg);
+    }
+    
+    .task-form {
+        grid-column: 1 / 3;
     }
 }
