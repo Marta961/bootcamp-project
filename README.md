@@ -1,6 +1,6 @@
-#TasFlow - Gestión de Tareas
+##TaskFlow - Gestión de Tareas
 
-#Características
+##Características:
 La interfaz de TaskFlow incluye los siguientes apartados de arriba hacia abajo:
 - **Título:** TaskFlow Gestión de tareas
 - **Listado de tareas:** Los usuarios podrán escribir las tareas que necesitan realizar y si están hechas
