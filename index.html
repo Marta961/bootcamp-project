@@ -35,7 +35,23 @@
                 <span>Pendientes:</span>
                 <strong id="pending-count">0</strong>
             </div>
+            <!-- Botones de backup (nuevo) -->
+                 <div class="backup-actions" style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem;">
+                    <button onclick="exportData()" 
+                        style="flex: 1; padding: 0.5rem; background-color: var(--color-primary); color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.875rem;">
+                        📥 Exportar
+                    </button>
+                    <button onclick="document.getElementById('import-file').click()" 
+                        style="flex: 1; padding: 0.5rem; background-color: var(--color-primary); color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.875rem;">
+                        📤 Importar
+                    </button>
+                    <button onclick="clearAllData()" 
+                        style="flex: 1; padding: 0.5rem; background-color: #64748b; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.875rem;">
+                        🗑️ Borrar todo
+                    </button>
+                    </div>
         </aside>
+            
 
         <!-- 3. Formulario (tercer apartado) -->
         <section class="task-form">
