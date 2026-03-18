@@ -1,87 +1,113 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TaskFlow - Gestión de Tareas</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6366f1',
+                        'primary-hover': '#4f46e5',
+                        success: '#22c55e',
+                        danger: '#ef4444',
+                        warning: '#f59e0b'
+                    }
+                }
+            }
+        }
+    </script>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <!-- Título -->
-    <header>
-        <h1>TaskFlow <br><em>Gestión de mis tareas</em></h1>
+<body class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-200">
+    <!-- Título  -->
+    <header class="bg-primary text-white py-6 px-8 flex justify-between items-center shadow-md">
+        <div>
+            <h1 class="text-3xl font-bold mb-1">TaskFlow</h1>
+            <p class="text-sm opacity-90">Gestión de Tareas</p>
+        </div>
+        <button id="theme-toggle" class="px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg cursor-pointer transition-colors text-sm">
+            🌙 Modo oscuro
+        </button>
     </header>
 
     <!-- Contenido principal -->
-    <main>
+    <main class="max-w-6xl mx-auto p-6 flex flex-col gap-6">
         <!-- 1. Lista de tareas -->
-        <section class="task-list">
-            <h2>Mis tareas</h2>
+        <section class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm">
+            <h2 class="text-xl font-semibold mb-4">Mis tareas</h2>
             
             <!-- Barra de búsqueda y filtros -->
-            <div class="task-controls">
+            <div class="flex flex-col gap-6 mb-6 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
                 <!-- Búsqueda -->
-                <div class="search-box">
+                <div class="w-full">
                     <input type="text" 
                            id="search-input" 
-                           placeholder="🔍 Buscar mis tareas..." 
-                           class="search-input">
+                           placeholder="🔍 Buscar tareas..." 
+                           class="w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-600 rounded-lg text-base focus:outline-none focus:border-primary dark:bg-gray-800 dark:text-gray-100 transition-colors">
                 </div>
                 
-                <!-- Filtros -->
-                <div class="filter-buttons">
-                    <button class="filter-btn active" data-filter="all">Todas</button>
-                    <button class="filter-btn" data-filter="pending">Pendientes</button>
-                    <button class="filter-btn" data-filter="completed">Completadas</button>
-                    <button id="complete-all-btn" class="btn-bulk">
+                <!-- Filtros y Acciones-->
+                <div class="flex gap-4 flex-wrap justify-center items-center">
+                    <button class="filter-btn active px-4 py-2 border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-full text-sm cursor-pointer transition-all hover:border-primary" data-filter="all">Todas</button>
+                    <button class="filter-btn px-4 py-2 border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-full text-sm cursor-pointer transition-all hover:border-primary hover:text-primary dark:hover:text-primary" data-filter="pending">Pendientes</button>
+                    <button class="filter-btn px-4 py-2 border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-full text-sm cursor-pointer transition-all hover:border-primary hover:text-primary dark:hover:text-primary" data-filter="completed">Completadas</button>
+                    <button id="complete-all-btn" class="filter-btn px-4 py-2 bg-primary text-white border-none rounded-full text-sm cursor-pointer transition-all hover:bg-primary-hover">
                         ✓ Marcar todas
                     </button>
-                    <button id="delete-completed-btn" class="btn-bulk btn-danger">
+                    <button id="delete-completed-btn" class="filter-btn px-4 py-2 bg-danger text-white border-none rounded-full text-sm cursor-pointer transition-all hover:bg-red-600">
                         🗑️ Borrar completadas
                     </button>
                 </div>
             </div>
             
-            <!-- Lista de mis tareas -->
-            <ul id="tasks-container">
-                <li class="empty-state">No tengo tareas aún. ¡Añade una!</li>
+            <!-- Lista de tareas -->
+            <ul id="tasks-container" class="space-y-2">
+                <li class="empty-state text-center py-8 text-gray-500 dark:text-gray-400 italic">No hay tareas aún. ¡Añade una!</li>
             </ul>
         </section>
 
         <!-- 2. Estadísticas -->
-        <aside class="stats-panel">
-            <h2>Estadísticas</h2>
-            <div class="stat-item">
+        <aside class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm border-l-4 border-primary dark:border-l-0 dark:border-t-4">
+            <h2 class="text-xl font-semibold mb-4">Estadísticas</h2>
+            <div class="flex justify-between py-2 border-b border-gray-200 dark:border-gray-700">
                 <span>Total:</span>
-                <strong id="total-count">0</strong>
+                <strong id="total-count" class="text-primary">0</strong>
             </div>
-            <div class="stat-item">
+            <div class="flex justify-between py-2 border-b border-gray-200 dark:border-gray-700">
                 <span>Completadas:</span>
-                <strong id="completed-count">0</strong>
+                <strong id="completed-count" class="text-primary">0</strong>
             </div>
-            <div class="stat-item">
+            <div class="flex justify-between py-2">
                 <span>Pendientes:</span>
-                <strong id="pending-count">0</strong>
+                <strong id="pending-count" class="text-primary">0</strong>
             </div>
             
-            <hr class="separator">
+            <hr class="my-4 border-gray-300 dark:border-gray-600">
             
-            <div class="backup-actions">
-                <button onclick="exportData()">📥 Exportar</button>
-                <button onclick="document.getElementById('import-file').click()">📤 Importar</button>
-                <button onclick="clearAllData()" class="btn-gray">🗑️ Borrar todo</button>
+            <!-- Botones de backup -->
+            <div class="flex gap-4 flex-wrap mt-2 justify-center items-center">
+                <button onclick="exportData()" class="filter-btn px-4 py-2 bg-primary text-white border-none rounded-full text-sm cursor-pointer transition-all hover:bg-primary-hover">📥 Exportar</button>
+                <button onclick="document.getElementById('import-file').click()" class="filter-btn px-4 py-2 bg-primary text-white border-none rounded-full text-sm cursor-pointer transition-all hover:bg-primary-hover">📤 Importar</button>
+                <button onclick="clearAllData()" class="filter-btn px-4 py-2 bg-gray-500 text-white border-none rounded-full text-sm cursor-pointer transition-all hover:bg-gray-600">🗑️ Borrar todo</button>
             </div>
             <input type="file" id="import-file" accept=".json" class="hidden" onchange="importData(this.files[0])">
         </aside>
 
         <!-- 3. Formulario -->
-        <section class="task-form">
-            <h3>Formulario</h3>
-            <form id="task-form">
-                <input type="text" id="task-input" placeholder="Escribe mejoras o tareas..." required>
-                <button type="submit">Añadir</button>
+        <section class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm">
+            <h3 class="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-100">Añadir nueva tarea</h3>
+            <form id="task-form" class="flex flex-col gap-4">
+                <input type="text" id="task-input" placeholder="Escribe una nueva tarea..." required class="px-4 py-3 border-2 border-gray-300 dark:border-gray-600 rounded-lg text-base focus:outline-none focus:border-primary dark:bg-gray-800 dark:text-gray-100 transition-colors">
+                <button type="submit" class="px-4 py-3 bg-primary text-white border-none rounded-lg text-base cursor-pointer transition-colors hover:bg-primary-hover">Añadir</button>
             </form>
         </section>
     </main>
 
+</body>
 </html>
