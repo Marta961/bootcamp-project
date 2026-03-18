@@ -41,21 +41,17 @@ function setupEventListeners() {
         });
     });
     
-    // Marcar todas como completadas (feedback visual temporal)
     completeAllBtn.addEventListener('click', () => {
         completeAllBtn.classList.add('active');
         setTimeout(() => completeAllBtn.classList.remove('active'), 500);
         markAllAsCompleted();
     });
     
-    // Borrar completadas (MANTENER ROJO PERMANENTEMENTE)
     deleteCompletedBtn.addEventListener('click', () => {
         deleteCompletedBtn.classList.add('active');
-        // NO hay setTimeout - el botón se queda rojo permanentemente
         deleteCompletedTasks();
     });
     
-    // Toggle modo oscuro
     themeToggle.addEventListener('click', toggleTheme);
 }
 
@@ -104,6 +100,12 @@ taskForm.addEventListener('submit', (e) => {
     
     tasks.push(task);
     saveTasks();
+    
+    // Cambiar filtro a "Todas" para que aparezca la nueva tarea
+    currentFilter = 'all';
+    filterButtons.forEach(b => b.classList.remove('active'));
+    document.querySelector('[data-filter="all"]').classList.add('active');
+    
     renderTasks();
     updateStats();
     taskInput.value = '';
@@ -162,17 +164,41 @@ function createTaskElement(task) {
     
     li.innerHTML = `
         <div class="flex items-center gap-2 flex-1">
-            <input type="checkbox" class="task-checkbox w-5 h-5 cursor-pointer" id="task-${task.id}" ${task.completed ? 'checked' : ''}>
+            <input type="checkbox" 
+                   class="task-checkbox w-5 h-5 cursor-pointer" 
+                   id="task-${task.id}" 
+                   ${task.completed ? 'checked' : ''}
+                   aria-label="Marcar tarea como completada: ${escapeHtml(task.title)}">
             <label for="task-${task.id}" class="task-title cursor-pointer ${task.completed ? 'line-through text-gray-500 dark:text-gray-400' : ''}">${escapeHtml(task.title)}</label>
         </div>
         <div class="flex gap-2">
-            <button class="btn-edit px-3 py-1 bg-warning text-white border-none rounded cursor-pointer text-sm transition-colors hover:bg-yellow-600" data-action="edit" title="Editar">✎</button>
-            <button class="btn-complete px-3 py-1 bg-success text-white border-none rounded cursor-pointer text-sm transition-colors hover:bg-green-600" data-action="complete" title="${task.completed ? 'Desmarcar' : 'Completar'}">✓</button>
-            <button class="btn-delete px-3 py-1 bg-danger text-white border-none rounded cursor-pointer text-sm transition-colors hover:bg-red-600" data-action="delete" title="Eliminar">✕</button>
+            <button class="btn-edit px-3 py-1 bg-warning text-white border-none rounded cursor-pointer text-sm transition-colors hover:bg-yellow-600" 
+                    data-action="edit" 
+                    title="Editar"
+                    aria-label="Editar tarea: ${escapeHtml(task.title)}">✎</button>
+            <button class="btn-complete px-3 py-1 bg-success text-white border-none rounded cursor-pointer text-sm transition-colors hover:bg-green-600" 
+                    data-action="complete" 
+                    title="${task.completed ? 'Desmarcar' : 'Completar'}"
+                    aria-label="${task.completed ? 'Desmarcar' : 'Completar'} tarea: ${escapeHtml(task.title)}">✓</button>
+            <button class="btn-delete px-3 py-1 bg-danger text-white border-none rounded cursor-pointer text-sm transition-colors hover:bg-red-600" 
+                    data-action="delete" 
+                    title="Eliminar"
+                    aria-label="Eliminar tarea: ${escapeHtml(task.title)}">✕</button>
         </div>
     `;
     
-    li.querySelector('.task-checkbox').addEventListener('change', () => toggleTaskCompletion(task.id));
+    // Evento para checkbox (soporta Tab + Enter)
+    const checkbox = li.querySelector('.task-checkbox');
+    checkbox.addEventListener('change', () => toggleTaskCompletion(task.id));
+    
+    // Soporte adicional para tecla Enter en checkbox
+    checkbox.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            checkbox.checked = !checkbox.checked;
+            toggleTaskCompletion(task.id);
+        }
+    });
     
     li.querySelectorAll('.task-actions button, .btn-edit, .btn-complete, .btn-delete').forEach(button => {
         button.addEventListener('click', (e) => {

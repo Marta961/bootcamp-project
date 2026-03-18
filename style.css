@@ -26,36 +26,29 @@
     background-color: #b45309;
 }
 
-/* 
-   BOTÓN "TODAS" Y "MARCAR TODAS" - ESTILO UNIFICADO
-   Normal: Fondo azul, texto blanco
-   Hover: Fondo azul más oscuro, texto blanco
-   Activo: Fondo azul más oscuro, texto blanco (igual que hover)
-*/
+/* Botón "Todas" y "Marcar todas" - Estilo unificado */
 .filter-btn.active {
-    background-color: #6366f1; /* primary */
+    background-color: #6366f1;
     border-color: #6366f1;
     color: white;
 }
 
 .filter-btn.active:hover {
-    background-color: #4f46e5; /* primary-hover */
+    background-color: #4f46e5;
     color: white;
 }
 
-/* MODO OSCURO - "TODAS" Y "MARCAR TODAS" MISMO ESTILO */
 .dark .filter-btn.active {
-    background-color: #6366f1; /* primary */
+    background-color: #6366f1;
     border-color: #6366f1;
     color: white;
 }
 
 .dark .filter-btn.active:hover {
-    background-color: #4f46e5; /* primary-hover */
+    background-color: #4f46e5;
     color: white;
 }
 
-/* Aseguramos que "Todas" y "Marcar todas" sigan este estilo siempre */
 #complete-all-btn,
 .filter-btn[data-filter="all"] {
     background-color: #6366f1;
@@ -69,7 +62,6 @@
     color: white;
 }
 
-/* MODO OSCURO - "TODAS" Y "MARCAR TODAS" MISMO ESTILO EN HOVER */
 .dark #complete-all-btn,
 .dark .filter-btn[data-filter="all"] {
     background-color: #6366f1;
@@ -83,7 +75,7 @@
     color: white;
 }
 
-/* BOTÓN BORRAR COMPLETADAS - MANTENER ROJO SIEMPRE */
+/* Botón Borrar completadas */
 #delete-completed-btn {
     background-color: #ef4444;
     color: white;
@@ -104,24 +96,20 @@
     color: white;
 }
 
-/* 
-   BOTONES PENDIENTES Y COMPLETADAS - ESTADO HOVER
-   Cuando pasa el cursor: borde y texto del mismo color (azul)
-*/
+/* Botones Pendientes y Completadas - Hover */
 .filter-btn[data-filter="pending"]:hover,
 .filter-btn[data-filter="completed"]:hover {
-    border-color: #6366f1; /* primary - azul */
-    color: #6366f1; /* primary - azul */
+    border-color: #6366f1;
+    color: #6366f1;
 }
 
-/* MODO OSCURO - PENDIENTES Y COMPLETADAS HOVER */
 .dark .filter-btn[data-filter="pending"]:hover,
 .dark .filter-btn[data-filter="completed"]:hover {
-    border-color: #6366f1; /* primary - azul */
-    color: #6366f1; /* primary - azul */
+    border-color: #6366f1;
+    color: #6366f1;
 }
 
-/* BOTONES PENDIENTES Y COMPLETADAS - ESTADO ACTIVO (BLANCO CON BORDE AZUL) */
+/* Botones Pendientes y Completadas - Activo */
 .filter-btn[data-filter="pending"].active,
 .filter-btn[data-filter="completed"].active {
     background-color: white;
@@ -134,6 +122,49 @@
     background-color: #1f2937;
     border-color: #6366f1;
     color: #6366f1;
+}
+
+/* 
+   CHECKBOX ACCESIBLE - FOCO VISIBLE
+*/
+.task-checkbox {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #6366f1;
+    outline: 2px solid #6366f1;
+    outline-offset: 2px;
+}
+
+.task-checkbox:focus {
+    outline: 3px solid #6366f1;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.3);
+}
+
+.dark .task-checkbox:focus {
+    outline: 3px solid #818cf8;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.4);
+}
+
+/* 
+   INPUT DE EDICIÓN - MODO OSCURO CON TEXTO NEGRO
+   Cuando editas una tarea en modo oscuro, el texto será negro para mejor legibilidad
+*/
+.task-edit-input {
+    padding: 0.5rem;
+    border: 2px solid #6366f1;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    color: black; /* Texto negro en modo claro */
+}
+
+.dark .task-edit-input {
+    background-color: white; /* Fondo blanco */
+    color: black; /* Texto negro en modo oscuro */
+    border-color: #818cf8;
 }
 
 /* Animación suave */
