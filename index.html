@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TaskFlow - Gestión de Tareas</title>
+    <title>TaskFlow - Gestión de mis tareas</title>
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -29,7 +29,7 @@
 </head>
 <body class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-200">
 
-    <!-- Cabecera -->
+    <!-- Título -->
     <header class="bg-primary text-white py-6 px-8 flex justify-between items-center shadow-md relative">
         <button id="theme-toggle" class="px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg cursor-pointer transition-colors text-sm absolute left-8 z-10">
             🌙 Modo oscuro
@@ -37,7 +37,7 @@
 
         <div class="text-center flex-1">
             <h1 class="text-3xl font-bold mb-1">TaskFlow</h1>
-            <p class="text-sm opacity-90">Gestión de Tareas</p>
+            <p class="text-sm opacity-90">Gestión de tareas</p>
         </div>
 
         <div class="absolute right-8 w-20"></div>
@@ -63,12 +63,13 @@
                     <!-- PENDIENTES -->
                     <button class="filter-btn px-4 py-2 border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-full text-sm cursor-pointer transition-all hover:border-primary hover:text-primary dark:hover:text-primary text-gray-800 dark:text-gray-100" data-filter="pending">Pendientes</button>
                     
-                    <!-- COMPLETADAS - CON CLASE ACTIVE POR DEFECTO -->
-                    <button class="filter-btn active px-4 py-2 border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-full text-sm cursor-pointer transition-all hover:border-primary hover:text-primary dark:hover:text-primary text-gray-800 dark:text-gray-100" data-filter="completed">Completadas</button>
+                    <!-- COMPLETADAS -->
+                    <button class="filter-btn px-4 py-2 border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-full text-sm cursor-pointer transition-all hover:border-primary hover:text-primary dark:hover:text-primary text-gray-800 dark:text-gray-100" data-filter="completed">Completadas</button>
                     
-                    <!-- TODAS -->
-                    <button class="filter-btn px-4 py-2 border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-full text-sm cursor-pointer transition-all hover:border-primary hover:text-primary dark:hover:text-primary text-gray-800 dark:text-gray-100" data-filter="all">Todas</button>
+                    <!-- TODAS - AHORA IGUAL QUE "MARCAR TODAS" -->
+                    <button class="filter-btn active px-4 py-2 bg-primary text-white border-none rounded-full text-sm cursor-pointer transition-all hover:bg-primary-hover text-white" data-filter="all">Todas</button>
                     
+                    <!-- MARCAR TODAS -->
                     <button id="complete-all-btn" class="filter-btn px-4 py-2 bg-primary text-white border-none rounded-full text-sm cursor-pointer transition-all hover:bg-primary-hover">
                         ✓ Marcar todas
                     </button>
@@ -85,7 +86,7 @@
             </ul>
         </section>
 
-        <!-- 2. Panel de Estadísticas -->
+        <!-- 2. Estadísticas -->
         <aside class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm border-l-4 border-primary dark:border-l-0 dark:border-t-4">
             <h2 class="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-100">Estadísticas</h2>
             <div class="flex justify-between py-2 border-b border-gray-200 dark:border-gray-700">
@@ -112,11 +113,6 @@
         </section>
     </main>
 
-    <!-- Pie de Página -->
-    <footer class="text-center py-6 text-gray-500 dark:text-gray-400 text-sm">
-        <p>&copy; 2026 TaskFlow</p>
-    </footer>
-
-    <script src="app.js"></script>
+   <script src="app.js"></script>
 </body>
 </html>
