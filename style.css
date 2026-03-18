@@ -1,7 +1,4 @@
-/* ========================================
-   PERSONALIZACIONES ESPECÍFICAS
-   ======================================== */
-
+/* PERSONALIZACIONES ESPECÍFICAS */
 .task-item {
     transition: all 0.2s ease;
 }
@@ -26,7 +23,7 @@
     background-color: #b45309;
 }
 
-/* Botón "Todas" y "Marcar todas" - Estilo unificado */
+/* Botón: "Todas" y "Marcar todas" */
 .filter-btn.active {
     background-color: #6366f1;
     border-color: #6366f1;
@@ -75,7 +72,7 @@
     color: white;
 }
 
-/* Botón Borrar completadas */
+/* Botón: Borrar completadas */
 #delete-completed-btn {
     background-color: #ef4444;
     color: white;
@@ -96,7 +93,7 @@
     color: white;
 }
 
-/* Botones Pendientes y Completadas - Hover */
+/* Botones: Pendientes y Completadas - Hover */
 .filter-btn[data-filter="pending"]:hover,
 .filter-btn[data-filter="completed"]:hover {
     border-color: #6366f1;
@@ -109,7 +106,7 @@
     color: #6366f1;
 }
 
-/* Botones Pendientes y Completadas - Activo */
+/* Botones: Pendientes y Completadas - Activo */
 .filter-btn[data-filter="pending"].active,
 .filter-btn[data-filter="completed"].active {
     background-color: white;
@@ -124,9 +121,7 @@
     color: #6366f1;
 }
 
-/* 
-   CHECKBOX ACCESIBLE - FOCO VISIBLE
-*/
+/* CHECKBOX ACCESIBLE - FOCO VISIBLE */
 .task-checkbox {
     width: 20px;
     height: 20px;
@@ -148,22 +143,19 @@
     box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.4);
 }
 
-/* 
-   INPUT DE EDICIÓN - MODO OSCURO CON TEXTO NEGRO
-   Cuando editas una tarea en modo oscuro, el texto será negro para mejor legibilidad
-*/
+/* INPUT DE EDICIÓN - MODO OSCURO CON TEXTO NEGRO */
 .task-edit-input {
     padding: 0.5rem;
     border: 2px solid #6366f1;
     border-radius: 4px;
     font-size: 16px;
     background-color: white;
-    color: black; /* Texto negro en modo claro */
+    color: black;
 }
 
 .dark .task-edit-input {
-    background-color: white; /* Fondo blanco */
-    color: black; /* Texto negro en modo oscuro */
+    background-color: white;
+    color: black;
     border-color: #818cf8;
 }
 
