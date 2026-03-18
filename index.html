@@ -9,23 +9,22 @@
 <body>
     <!-- Título -->
     <header>
-        <h1>TaskFlow</h1>
-        <p>Gestión de Tareas</p>
+        <h1>TaskFlow <br><em>Gestión de Tareas</em></h1>
     </header>
 
-    <!-- Contenido -->
+    <!-- Contenido principal -->
     <main>
         <!-- 1. Lista de tareas -->
         <section class="task-list">
             <h2>Mis tareas</h2>
             
-            <!-- 🔵 NUEVO: Barra de búsqueda y filtros -->
+            <!-- Barra de búsqueda y filtros -->
             <div class="task-controls">
                 <!-- Búsqueda -->
                 <div class="search-box">
                     <input type="text" 
                            id="search-input" 
-                           placeholder="🔍 Buscar tareas..." 
+                           placeholder="🔍 Buscar mis tareas..." 
                            class="search-input">
                 </div>
                 
@@ -34,10 +33,6 @@
                     <button class="filter-btn active" data-filter="all">Todas</button>
                     <button class="filter-btn" data-filter="pending">Pendientes</button>
                     <button class="filter-btn" data-filter="completed">Completadas</button>
-                </div>
-                
-                <!-- Acciones masivas -->
-                <div class="bulk-actions">
                     <button id="complete-all-btn" class="btn-bulk">
                         ✓ Marcar todas
                     </button>
@@ -47,9 +42,9 @@
                 </div>
             </div>
             
-            <!-- Lista de tareas -->
+            <!-- Lista de mis tareas -->
             <ul id="tasks-container">
-                <li class="empty-state">No hay tareas aún. ¡Añade una!</li>
+                <li class="empty-state">No tengo tareas aún. ¡Añade una!</li>
             </ul>
         </section>
 
@@ -69,32 +64,24 @@
                 <strong id="pending-count">0</strong>
             </div>
             
-            <!-- 🔵 NUEVO: Botones de backup -->
-            <hr style="margin: 1rem 0; border: none; border-top: 1px solid var(--color-border);">
+            <hr class="separator">
             
             <div class="backup-actions">
                 <button onclick="exportData()">📥 Exportar</button>
                 <button onclick="document.getElementById('import-file').click()">📤 Importar</button>
-                <button onclick="clearAllData()" style="background-color: #64748b;">🗑️ Borrar todo</button>
+                <button onclick="clearAllData()" class="btn-gray">🗑️ Borrar todo</button>
             </div>
-            <input type="file" id="import-file" accept=".json" style="display: none;" onchange="importData(this.files[0])">
+            <input type="file" id="import-file" accept=".json" class="hidden" onchange="importData(this.files[0])">
         </aside>
 
-        <!-- 3. Formulario para añadir tareas -->
+        <!-- 3. Formulario -->
         <section class="task-form">
+            <h3>Formulario</h3>
             <form id="task-form">
-                <label for="task-input">Añadir nueva tarea:</label>
-                <input type="text" id="task-input" placeholder="Escribe una tarea..." required>
+                <input type="text" id="task-input" placeholder="Escribe mejoras o tareas..." required>
                 <button type="submit">Añadir</button>
             </form>
         </section>
     </main>
 
-    <!-- Pie de página -->
-    <footer>
-        <p>&copy; 2026 TaskFlow</p>
-    </footer>
-
-    <script src="app.js"></script>
-</body>
 </html>
