@@ -11,9 +11,7 @@
     --color-success: #22c55e;
     --color-danger: #ef4444;
     --color-warning: #f59e0b;
-    --color-pink-light: #fce7f3;
-    --color-pink-medium: #fbcfe8;
-    
+        
     /* Tipografía */
     --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --font-size-base: 16px;
@@ -92,8 +90,8 @@ section h2, aside h2, section h3 {
 
 /* LISTA DE TAREAS */
 .task-list {
-    background-color: var(--color-pink-light);
-    border: 2px solid var(--color-pink-medium);
+    background-color: var(--color-surface);
+    border: 2px solid var(--color-border);
 }
 
 .task-list h2 {
