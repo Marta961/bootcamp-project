@@ -41,8 +41,19 @@ function setupEventListeners() {
         });
     });
     
-    completeAllBtn.addEventListener('click', markAllAsCompleted);
-    deleteCompletedBtn.addEventListener('click', deleteCompletedTasks);
+    // Marcar todas como completadas (feedback visual temporal)
+    completeAllBtn.addEventListener('click', () => {
+        completeAllBtn.classList.add('active');
+        setTimeout(() => completeAllBtn.classList.remove('active'), 500);
+        markAllAsCompleted();
+    });
+    
+    // Borrar completadas (MANTENER ROJO PERMANENTEMENTE)
+    deleteCompletedBtn.addEventListener('click', () => {
+        deleteCompletedBtn.classList.add('active');
+        // NO hay setTimeout - el botón se queda rojo permanentemente
+        deleteCompletedTasks();
+    });
     
     // Toggle modo oscuro
     themeToggle.addEventListener('click', toggleTheme);

@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TaskFlow - Gestión de Tareas</title>
+    
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -22,35 +24,33 @@
             }
         }
     </script>
+    
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-200">
-    <!-- Título -->
+
+    <!-- Cabecera -->
     <header class="bg-primary text-white py-6 px-8 flex justify-between items-center shadow-md relative">
-        <!-- Botón modo oscuro-->
-        <button id="theme-toggle" class="px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg cursor-pointer transition-colors text-sm absolute left-8">
+        <button id="theme-toggle" class="px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg cursor-pointer transition-colors text-sm absolute left-8 z-10">
             🌙 Modo oscuro
         </button>
-        
-        <!-- Título centrado -->
+
         <div class="text-center flex-1">
             <h1 class="text-3xl font-bold mb-1">TaskFlow</h1>
             <p class="text-sm opacity-90">Gestión de Tareas</p>
         </div>
-        
-        <!-- Espacio vacío para equilibrar -->
+
         <div class="absolute right-8 w-20"></div>
     </header>
 
-    <!-- Contenido principal -->
+    <!-- Contenido Principal -->
     <main class="max-w-6xl mx-auto p-6 flex flex-col gap-6">
-        <!-- 1. Lista de tareas -->
+        
+        <!-- 1. Lista de Tareas -->
         <section class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm">
-            <h2 class="text-xl font-semibold mb-4">Mis tareas</h2>
+            <h2 class="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-100">Mis tareas</h2>
             
-            <!-- Barra de búsqueda y filtros -->
             <div class="flex flex-col gap-6 mb-6 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                <!-- Búsqueda -->
                 <div class="w-full">
                     <input type="text" 
                            id="search-input" 
@@ -60,49 +60,46 @@
                 
                 <!-- Filtros y Acciones -->
                 <div class="flex gap-4 flex-wrap justify-center items-center">
-                    <button class="filter-btn active px-4 py-2 border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-full text-sm cursor-pointer transition-all hover:border-primary" data-filter="all">Todas</button>
-                    <button class="filter-btn px-4 py-2 border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-full text-sm cursor-pointer transition-all hover:border-primary hover:text-primary dark:hover:text-primary" data-filter="pending">Pendientes</button>
-                    <button class="filter-btn px-4 py-2 border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-full text-sm cursor-pointer transition-all hover:border-primary hover:text-primary dark:hover:text-primary" data-filter="completed">Completadas</button>
+                    <!-- PENDIENTES -->
+                    <button class="filter-btn px-4 py-2 border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-full text-sm cursor-pointer transition-all hover:border-primary hover:text-primary dark:hover:text-primary text-gray-800 dark:text-gray-100" data-filter="pending">Pendientes</button>
+                    
+                    <!-- COMPLETADAS - CON CLASE ACTIVE POR DEFECTO -->
+                    <button class="filter-btn active px-4 py-2 border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-full text-sm cursor-pointer transition-all hover:border-primary hover:text-primary dark:hover:text-primary text-gray-800 dark:text-gray-100" data-filter="completed">Completadas</button>
+                    
+                    <!-- TODAS -->
+                    <button class="filter-btn px-4 py-2 border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-full text-sm cursor-pointer transition-all hover:border-primary hover:text-primary dark:hover:text-primary text-gray-800 dark:text-gray-100" data-filter="all">Todas</button>
+                    
                     <button id="complete-all-btn" class="filter-btn px-4 py-2 bg-primary text-white border-none rounded-full text-sm cursor-pointer transition-all hover:bg-primary-hover">
                         ✓ Marcar todas
                     </button>
-                    <button id="delete-completed-btn" class="filter-btn px-4 py-2 bg-danger text-white border-none rounded-full text-sm cursor-pointer transition-all hover:bg-red-600">
+                    
+                    <!-- BORRAR COMPLETADAS - CON CLASE ACTIVE (Mantiene rojo) -->
+                    <button id="delete-completed-btn" class="filter-btn px-4 py-2 bg-danger text-white border-none rounded-full text-sm cursor-pointer transition-all hover:bg-red-700 active">
                         🗑️ Borrar completadas
                     </button>
                 </div>
             </div>
             
-            <!-- Lista de tareas -->
             <ul id="tasks-container" class="space-y-2">
                 <li class="empty-state text-center py-8 text-gray-500 dark:text-gray-400 italic">No hay tareas aún. ¡Añade una!</li>
             </ul>
         </section>
 
-        <!-- 2. Panel de estadísticas -->
+        <!-- 2. Panel de Estadísticas -->
         <aside class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm border-l-4 border-primary dark:border-l-0 dark:border-t-4">
-            <h2 class="text-xl font-semibold mb-4">Estadísticas</h2>
+            <h2 class="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-100">Estadísticas</h2>
             <div class="flex justify-between py-2 border-b border-gray-200 dark:border-gray-700">
-                <span>Total:</span>
+                <span class="text-gray-700 dark:text-gray-300">Total:</span>
                 <strong id="total-count" class="text-primary">0</strong>
             </div>
             <div class="flex justify-between py-2 border-b border-gray-200 dark:border-gray-700">
-                <span>Completadas:</span>
+                <span class="text-gray-700 dark:text-gray-300">Completadas:</span>
                 <strong id="completed-count" class="text-primary">0</strong>
             </div>
             <div class="flex justify-between py-2">
-                <span>Pendientes:</span>
+                <span class="text-gray-700 dark:text-gray-300">Pendientes:</span>
                 <strong id="pending-count" class="text-primary">0</strong>
             </div>
-            
-            <hr class="my-4 border-gray-300 dark:border-gray-600">
-            
-            <!-- Botones de backup -->
-            <div class="flex gap-4 flex-wrap mt-2 justify-center items-center">
-                <button onclick="exportData()" class="filter-btn px-4 py-2 bg-primary text-white border-none rounded-full text-sm cursor-pointer transition-all hover:bg-primary-hover">📥 Exportar</button>
-                <button onclick="document.getElementById('import-file').click()" class="filter-btn px-4 py-2 bg-primary text-white border-none rounded-full text-sm cursor-pointer transition-all hover:bg-primary-hover">📤 Importar</button>
-                <button onclick="clearAllData()" class="filter-btn px-4 py-2 bg-gray-500 text-white border-none rounded-full text-sm cursor-pointer transition-all hover:bg-gray-600">🗑️ Borrar todo</button>
-            </div>
-            <input type="file" id="import-file" accept=".json" class="hidden" onchange="importData(this.files[0])">
         </aside>
 
         <!-- 3. Formulario -->
@@ -115,5 +112,11 @@
         </section>
     </main>
 
+    <!-- Pie de Página -->
+    <footer class="text-center py-6 text-gray-500 dark:text-gray-400 text-sm">
+        <p>&copy; 2026 TaskFlow</p>
+    </footer>
+
+    <script src="app.js"></script>
 </body>
 </html>
