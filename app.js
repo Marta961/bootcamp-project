@@ -1,9 +1,13 @@
+// ========================================
 // ESTADO DE LA APLICACIÓN
+// ========================================
 let tasks = [];
 let currentFilter = 'all';
 let searchQuery = '';
 
+// ========================================
 // REFERENCIAS AL DOM
+// ========================================
 const taskForm = document.getElementById('task-form');
 const taskInput = document.getElementById('task-input');
 const tasksContainer = document.getElementById('tasks-container');
@@ -16,7 +20,9 @@ const completeAllBtn = document.getElementById('complete-all-btn');
 const deleteCompletedBtn = document.getElementById('delete-completed-btn');
 const themeToggle = document.getElementById('theme-toggle');
 
+// ========================================
 // INICIALIZACIÓN
+// ========================================
 document.addEventListener('DOMContentLoaded', () => {
     loadTasks();
     loadTheme();
@@ -25,7 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
     setupEventListeners();
 });
 
+// ========================================
 // CONFIGURAR EVENT LISTENERS
+// ========================================
 function setupEventListeners() {
     searchInput.addEventListener('input', (e) => {
         searchQuery = e.target.value.toLowerCase().trim();
@@ -55,7 +63,9 @@ function setupEventListeners() {
     themeToggle.addEventListener('click', toggleTheme);
 }
 
+// ========================================
 // MODO OSCURO
+// ========================================
 function loadTheme() {
     const savedTheme = localStorage.getItem('taskflow-theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -81,7 +91,10 @@ function toggleTheme() {
     }
 }
 
+// ========================================
 // FUNCIONES PRINCIPALES
+// ========================================
+
 taskForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const title = taskInput.value.trim();
@@ -101,7 +114,6 @@ taskForm.addEventListener('submit', (e) => {
     tasks.push(task);
     saveTasks();
     
-    // Cambiar filtro a "Todas" para que aparezca la nueva tarea
     currentFilter = 'all';
     filterButtons.forEach(b => b.classList.remove('active'));
     document.querySelector('[data-filter="all"]').classList.add('active');
@@ -187,11 +199,9 @@ function createTaskElement(task) {
         </div>
     `;
     
-    // Evento para checkbox (soporta Tab + Enter)
     const checkbox = li.querySelector('.task-checkbox');
     checkbox.addEventListener('change', () => toggleTaskCompletion(task.id));
     
-    // Soporte adicional para tecla Enter en checkbox
     checkbox.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
@@ -306,7 +316,10 @@ function updateStats() {
     pendingCount.textContent = pending;
 }
 
+// ========================================
 // LOCAL STORAGE
+// ========================================
+
 const STORAGE_KEYS = {
     TASKS: 'taskflow-tasks',
     THEME: 'taskflow-theme',
@@ -397,7 +410,10 @@ if (!isLocalStorageAvailable()) {
     alert('LocalStorage no está disponible. Algunos datos podrían perderse.');
 }
 
+// ========================================
 // UTILIDADES
+// ========================================
+
 function escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;
