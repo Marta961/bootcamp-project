@@ -1,13 +1,9 @@
-// ========================================
 // ESTADO DE LA APLICACIÓN
-// ========================================
 let tasks = [];
 let currentFilter = 'all';
 let searchQuery = '';
 
-// ========================================
 // REFERENCIAS AL DOM
-// ========================================
 const taskForm = document.getElementById('task-form');
 const taskInput = document.getElementById('task-input');
 const tasksContainer = document.getElementById('tasks-container');
@@ -20,9 +16,7 @@ const completeAllBtn = document.getElementById('complete-all-btn');
 const deleteCompletedBtn = document.getElementById('delete-completed-btn');
 const themeToggle = document.getElementById('theme-toggle');
 
-// ========================================
 // INICIALIZACIÓN
-// ========================================
 document.addEventListener('DOMContentLoaded', () => {
     loadTasks();
     loadTheme();
@@ -31,9 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupEventListeners();
 });
 
-// ========================================
 // CONFIGURAR EVENT LISTENERS
-// ========================================
 function setupEventListeners() {
     searchInput.addEventListener('input', (e) => {
         searchQuery = e.target.value.toLowerCase().trim();
@@ -63,9 +55,7 @@ function setupEventListeners() {
     themeToggle.addEventListener('click', toggleTheme);
 }
 
-// ========================================
 // MODO OSCURO
-// ========================================
 function loadTheme() {
     const savedTheme = localStorage.getItem('taskflow-theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -91,10 +81,7 @@ function toggleTheme() {
     }
 }
 
-// ========================================
 // FUNCIONES PRINCIPALES
-// ========================================
-
 taskForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const title = taskInput.value.trim();
@@ -261,16 +248,67 @@ function editTask(taskId, taskElement) {
 
 function toggleTaskCompletion(taskId) {
     const task = tasks.find(t => t.id === taskId);
-    if (task) {
-        task.completed = !task.completed;
-        saveTasks();
-        renderTasks();
-        updateStats();
+    if (!task) return;
+    
+    task.completed = !task.completed;
+    saveTasks();
+    updateStats();
+    
+    updateSingleTaskElement(taskId);
+}
+
+function updateSingleTaskElement(taskId) {
+    const taskElement = document.querySelector(`li[data-id="${taskId}"]`);
+    if (!taskElement) return;
+    
+    const task = tasks.find(t => t.id === taskId);
+    if (!task) return;
+    
+    // Actualizar clases para animación
+    if (task.completed) {
+        taskElement.classList.add('completed');
+        taskElement.classList.add('marked-complete');
+        
+        // Quitar la clase de animación después de 300ms
+        setTimeout(() => {
+            taskElement.classList.remove('marked-complete');
+        }, 300);
+    } else {
+        taskElement.classList.remove('completed');
+    }
+    
+    // Actualizar checkbox
+    const checkbox = taskElement.querySelector('.task-checkbox');
+    if (checkbox) checkbox.checked = task.completed;
+    
+    // Actualizar label
+    const label = taskElement.querySelector('.task-title');
+    if (label) {
+        if (task.completed) {
+            label.classList.add('line-through', 'text-gray-500', 'dark:text-gray-400');
+        } else {
+            label.classList.remove('line-through', 'text-gray-500', 'dark:text-gray-400');
+        }
     }
 }
 
 function deleteTask(taskId) {
-    if (confirm('¿Estás seguro de que quieres eliminar esta tarea?')) {
+    // Encontrar el elemento en el DOM
+    const taskElement = document.querySelector(`li[data-id="${taskId}"]`);
+    
+    if (taskElement) {
+        // Añadir clase de animación de salida
+        taskElement.classList.add('deleting');
+        
+        // Esperar a que termine la animación (300ms) antes de borrar del DOM y del array
+        setTimeout(() => {
+            tasks = tasks.filter(t => t.id !== taskId);
+            saveTasks();
+            renderTasks();
+            updateStats();
+        }, 300); 
+    } else {
+        // Fallback si no se encuentra el elemento (por si acaso)
         tasks = tasks.filter(t => t.id !== taskId);
         saveTasks();
         renderTasks();
@@ -299,10 +337,19 @@ function deleteCompletedTasks() {
         return;
     }
     if (confirm(`¿Borrar ${completedTasks.length} tareas completadas?`)) {
-        tasks = tasks.filter(t => !t.completed);
-        saveTasks();
-        renderTasks();
-        updateStats();
+        completedTasks.forEach(task => {
+            const taskElement = document.querySelector(`li[data-id="${task.id}"]`);
+            if (taskElement) {
+                taskElement.classList.add('deleting');
+            }
+        });
+        
+        setTimeout(() => {
+            tasks = tasks.filter(t => !t.completed);
+            saveTasks();
+            renderTasks();
+            updateStats();
+        }, 300);
     }
 }
 
@@ -316,10 +363,7 @@ function updateStats() {
     pendingCount.textContent = pending;
 }
 
-// ========================================
 // LOCAL STORAGE
-// ========================================
-
 const STORAGE_KEYS = {
     TASKS: 'taskflow-tasks',
     THEME: 'taskflow-theme',
@@ -410,10 +454,7 @@ if (!isLocalStorageAvailable()) {
     alert('LocalStorage no está disponible. Algunos datos podrían perderse.');
 }
 
-// ========================================
 // UTILIDADES
-// ========================================
-
 function escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;
