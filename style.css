@@ -1,3 +1,72 @@
+
+/* BOTÓN DE TEMA - ICONO EN MÓVIL */
+/* Botón de tema - Estilo base */
+.theme-toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+}
+
+/* Texto para escritorio */
+.desktop-text {
+    display: inline;
+}
+
+/* Icono para móvil (oculto en escritorio) */
+.mobile-icon {
+    display: none;
+    font-size: 1.25rem;
+}
+
+/* MÓVIL - Botón con icono solo arriba a la derecha */
+@media (max-width: 768px) {
+    #theme-toggle {
+        position: absolute !important;
+        right: 1rem !important;
+        top: 1rem !important;
+        transform: none !important;
+        width: 44px;
+        height: 44px;
+        padding: 0.5rem;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+    }
+    
+    #theme-toggle:hover {
+        background-color: rgba(255, 255, 255, 0.3);
+    }
+    
+    .desktop-text {
+        display: none;
+    }
+    
+    .mobile-icon {
+        display: inline;
+        font-size: 1.5rem;
+    }
+}
+
+/* ESCRITORIO - Texto completo */
+@media (min-width: 769px) {
+    #theme-toggle {
+        position: absolute !important;
+        left: 1rem !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        right: auto !important;
+    }
+    
+    .desktop-text {
+        display: inline;
+    }
+    
+    .mobile-icon {
+        display: none;
+    }
+}
+
 /* PERSONALIZACIONES ESPECÍFICAS */
 .task-item {
     transition: background-color 0.3s ease, 
