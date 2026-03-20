@@ -1,5 +1,4 @@
-
-/* BOTÓN DE TEMA - ICONO EN MÓVIL */
+/* BOTÓN DE TEMA - CORRECCIÓN COMPLETA */
 /* Botón de tema - Estilo base */
 .theme-toggle-btn {
     display: flex;
@@ -9,24 +8,24 @@
     min-height: 44px;
 }
 
-/* Texto para escritorio */
+/* Texto para escritorio (visible) */
 .desktop-text {
     display: inline;
 }
 
-/* Icono para móvil (oculto en escritorio) */
+/* Icono para móvil (oculto) */
 .mobile-icon {
     display: none;
-    font-size: 1.25rem;
+    font-size: 1.5rem;
 }
 
-/* MÓVIL - Botón con icono solo arriba a la derecha */
+/* MÓVIL - Icono */
 @media (max-width: 768px) {
     #theme-toggle {
         position: absolute !important;
         right: 1rem !important;
-        top: 1rem !important;
-        transform: none !important;
+        top: 50% !important;  
+        transform: translateY(-50%) !important; 
         width: 44px;
         height: 44px;
         padding: 0.5rem;
@@ -39,16 +38,16 @@
     }
     
     .desktop-text {
-        display: none;
+        display: none !important;
     }
     
     .mobile-icon {
-        display: inline;
+        display: inline !important;
         font-size: 1.5rem;
     }
 }
 
-/* ESCRITORIO - Texto completo */
+/* ESCRITORIO - Texto e icono */
 @media (min-width: 769px) {
     #theme-toggle {
         position: absolute !important;
@@ -59,11 +58,11 @@
     }
     
     .desktop-text {
-        display: inline;
+        display: inline !important;
     }
     
     .mobile-icon {
-        display: none;
+        display: none !important;
     }
 }
 
