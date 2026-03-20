@@ -98,26 +98,30 @@ function toggleTheme() {
 taskForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const title = taskInput.value.trim();
-    
+    // CAPTURAR PRIORIDAD
+    const prioritySelect = document.getElementById('priority-select');
+    const priority = prioritySelect ? prioritySelect.value : 'media'; // Default a media si no existe
+
     if (title === '') {
         alert('Por favor, escribe una tarea');
         return;
     }
-    
+
     const task = {
         id: Date.now(),
         title: title,
         completed: false,
+        priority: priority,
         createdAt: new Date().toISOString()
     };
-    
+
     tasks.push(task);
     saveTasks();
     
     currentFilter = 'all';
     filterButtons.forEach(b => b.classList.remove('active'));
     document.querySelector('[data-filter="all"]').classList.add('active');
-    
+
     renderTasks();
     updateStats();
     taskInput.value = '';
@@ -171,9 +175,22 @@ function renderTasks() {
 
 function createTaskElement(task) {
     const li = document.createElement('li');
-    li.className = `task-item flex justify-between items-center p-4 border border-gray-300 dark:border-gray-600 rounded-lg mb-2 ${task.completed ? 'completed' : ''} dark:bg-gray-700`;
+    li.className = `task-item flex justify-between items-center p-4 border border-gray-300 dark:border-gray-600 rounded-lg mb-2 ${task.completed ? 'completed' : ''} dark:bg-gray-700 task-priority-${task.priority}`;
     li.dataset.id = task.id;
     
+    let priorityLabel = '';
+    let priorityClass = '';
+    
+    if (task.priority === 'alta') {
+        priorityLabel = '🔴¡Urgente!';
+        priorityClass = 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200';
+    } else if (task.priority === 'media') {
+        priorityLabel = '🟡Mediana';
+        priorityClass = 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200';
+    } else {
+        priorityLabel = '🟢Baja';
+        priorityClass = 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200';
+    }
     li.innerHTML = `
         <div class="flex items-center gap-2 flex-1">
             <input type="checkbox" 
@@ -183,6 +200,11 @@ function createTaskElement(task) {
                    aria-label="Marcar tarea como completada: ${escapeHtml(task.title)}">
             <label for="task-${task.id}" class="task-title cursor-pointer ${task.completed ? 'line-through text-gray-500 dark:text-gray-400' : ''}">${escapeHtml(task.title)}</label>
         </div>
+
+        <span class="px-2 py-1 text-xs font-semibold rounded-full ${priorityClass} mr-2">
+            ${priorityLabel}
+        </span>
+
         <div class="flex gap-2">
             <button class="btn-edit px-3 py-1 bg-warning text-white border-none rounded cursor-pointer text-sm transition-colors hover:bg-yellow-600" 
                     data-action="edit" 
@@ -473,3 +495,43 @@ function escapeHtml(text) {
     div.textContent = text;
     return div.innerHTML;
 }
+
+// DRAG & DROP 
+// Inicializar drag & drop después de cargar la página
+document.addEventListener('DOMContentLoaded', () => {
+    const tasksContainer = document.getElementById('tasks-container');
+    
+    if (tasksContainer && typeof Sortable !== 'undefined') {
+        new Sortable(tasksContainer, {
+            animation: 150,              
+            ghostClass: 'sortable-ghost', 
+            dragClass: 'sortable-drag',   
+            delay: 100,                   
+            delayOnTouchOnly: true,
+            
+            // Cuando se suelta la tarea
+            onEnd: function(evt) {
+                // Obtener las tareas actuales del DOM
+                const taskItems = Array.from(tasksContainer.querySelectorAll('.task-item'));
+                
+                // Reconstruir el array 'tasks' según el nuevo orden visual
+                const newTasksOrder = [];
+                taskItems.forEach(item => {
+                    const taskId = parseInt(item.dataset.id);
+                    const task = tasks.find(t => t.id === taskId);
+                    if (task) {
+                        newTasksOrder.push(task);
+                    }
+                });
+                
+                // Actualizar el array global
+                tasks = newTasksOrder;
+                
+                // Guardar en LocalStorage
+                saveTasks();
+                
+                console.log('Sus tareas han estado reordenadas reordenadas');
+            }
+        });
+    }
+});
