@@ -62,10 +62,23 @@ function loadTheme() {
     
     if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
         document.documentElement.classList.add('dark');
-        themeToggle.textContent = '☀️ Modo claro';
+        updateThemeButtonText('dark');
     } else {
         document.documentElement.classList.remove('dark');
-        themeToggle.textContent = '🌙 Modo oscuro';
+        updateThemeButtonText('light');
+    }
+}
+
+function updateThemeButtonText(theme) {
+    const mobileIcon = themeToggle.querySelector('.mobile-icon');
+    const desktopText = themeToggle.querySelector('.desktop-text');
+    
+    if (theme === 'dark') {
+        if (mobileIcon) mobileIcon.textContent = '☀️';
+        if (desktopText) desktopText.textContent = '☀️ Modo claro';
+    } else {
+        if (mobileIcon) mobileIcon.textContent = '🌙';
+        if (desktopText) desktopText.textContent = '🌙 Modo oscuro';
     }
 }
 
@@ -73,11 +86,11 @@ function toggleTheme() {
     if (document.documentElement.classList.contains('dark')) {
         document.documentElement.classList.remove('dark');
         localStorage.setItem('taskflow-theme', 'light');
-        themeToggle.textContent = '🌙 Modo oscuro';
+        updateThemeButtonText('light');
     } else {
         document.documentElement.classList.add('dark');
         localStorage.setItem('taskflow-theme', 'dark');
-        themeToggle.textContent = '☀️ Modo claro';
+        updateThemeButtonText('dark');
     }
 }
 
