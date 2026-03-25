@@ -1,1 +1,4 @@
-Se detallara como afecta el uso de la inteligencia artifical en las tareas de programación. 
+Tarea a realizar: Se detallara como afecta el uso de la inteligencia artifical en las tareas de programación. 
+
+La inteligencia artificial se deberia de usar una vez se tiene conocimientos sólidos de la materia porque si no se puede caer en la dependencia de ella y dar una falsa sensación de conocimiento. Por otro lado, puede causar falta de aprendizaje al detectar errores y cómo solucionarlos si se recurre directamente a la máquina para solventarlos. 
+Por otro lado, si ya tienes conocimientos sólidos de programación, te puede ayudar a ir más rápido. Aunque también se tiene que ir con cuidado dado que se usa en exceso al principio de la página web o de la aplicación, te puede reducir la creatividad al no estar iniciando tú mismo el diseño del mismo. 
