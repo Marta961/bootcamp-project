@@ -1,1 +1,3 @@
-Se comparara el uso de la inteligencia artificial y la realización manual de la solución de los problemas del código. 
+Tarea a realizar: Se comparara el uso de la inteligencia artificial y la realización manual de la solución de los problemas del código. 
+
+Cuando se realizo la solución de los problemas con la inteligencia artificial, se tardó menos cantidad de tiempo que al hacerlo yo manualmente. Además, me facilitó en alguna ocasión una solución que no sabía lo que significaba el código y tuve que aprender lo que se estaba haciendo, antes de validar el código. También, me facilitaba opciones que no hubiera pensado que podrían servir. 
