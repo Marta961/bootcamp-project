@@ -53,7 +53,7 @@ La aplicación es full-stack para la gestión de tareas con frontend web y backe
   - `/api/*` -> función Node (`api/index.js`).
   - resto -> frontend estático (`index.html`).
 
-### Pruebas:
+## Pruebas:
 Se comprueba que los botones funcionan correctamente:
 - Me permite eliminar las tareas
 - Generar nuevas tareas
