@@ -1,0 +1,108 @@
+{
+  "info": {
+    "name": "TaskFlow API — Fase C (robustez y errores)",
+    "description": "Colección para pruebas de integración: casos felices y errores forzados.\n\n**Importar en Postman:** File → Import → este archivo.\n**Thunder Client (VS Code):** Importar colección desde JSON.\n\nVariables sugeridas: `baseUrl` = `http://localhost:3000` (ajusta el puerto a tu `.env`).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000" }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/v1/health"
+      }
+    },
+    {
+      "name": "GET tasks (lista)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/v1/tasks"
+      }
+    },
+    {
+      "name": "POST task OK",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"titulo\": \"Tarea de prueba Fase C\",\n  \"prioridad\": 2\n}"
+        },
+        "url": "{{baseUrl}}/api/v1/tasks"
+      }
+    },
+    {
+      "name": "ERROR: POST sin título (body vacío o sin titulo)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{}"
+        },
+        "url": "{{baseUrl}}/api/v1/tasks"
+      }
+    },
+    {
+      "name": "ERROR: POST título corto (< 3 caracteres)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"titulo\": \"ab\"\n}"
+        },
+        "url": "{{baseUrl}}/api/v1/tasks"
+      }
+    },
+    {
+      "name": "ERROR: POST prioridad inválida",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"titulo\": \"Tarea válida\",\n  \"prioridad\": 0\n}"
+        },
+        "url": "{{baseUrl}}/api/v1/tasks"
+      }
+    },
+    {
+      "name": "ERROR: DELETE tarea inexistente",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "{{baseUrl}}/api/v1/tasks/99999"
+      }
+    },
+    {
+      "name": "ERROR: PATCH complete tarea inexistente",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": "{{baseUrl}}/api/v1/tasks/99999/complete"
+      }
+    },
+    {
+      "name": "ERROR: DELETE id no numérico",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "{{baseUrl}}/api/v1/tasks/abc"
+      }
+    },
+    {
+      "name": "ERROR: ruta inexistente (404 genérico)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/v1/no-existe"
+      }
+    }
+  ]
+}
