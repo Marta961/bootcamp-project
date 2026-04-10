@@ -3,8 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Base de la API REST (Fase D). Sobrescribe window.TASKFLOW_API_BASE si necesitas otro origen. -->
-    <meta name="taskflow-api-base" content="http://localhost:3000/api/v1">
+    <!-- Base de la API REST (Fase D). En producción (Vercel) usamos ruta relativa /api/v1. -->
+    <meta name="taskflow-api-base" content="/api/v1">
+    <script>
+        // Local: el frontend suele servirse en 5173 y la API en 3000.
+        // Producción (Vercel): se mantiene /api/v1 en el mismo origen.
+        (function () {
+            var h = window.location.hostname;
+            if (h === 'localhost' || h === '127.0.0.1') {
+                window.TASKFLOW_API_BASE = 'http://localhost:3000/api/v1';
+            }
+        })();
+    </script>
     <title>TaskFlow - Listado de mis tareas</title>
     
     <!-- Tailwind CSS CDN -->

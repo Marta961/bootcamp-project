@@ -5,15 +5,25 @@
  */
 (function (global) {
   function resolveBaseUrl() {
+    // 1) Override explícito (útil en local / entornos)
+    if (typeof global !== 'undefined' && global.TASKFLOW_API_BASE) {
+      return String(global.TASKFLOW_API_BASE).replace(/\/$/, '');
+    }
+
+    // 2) Meta tag en el HTML (ideal para despliegue)
     if (typeof document !== 'undefined') {
       const meta = document.querySelector('meta[name="taskflow-api-base"]');
       if (meta && meta.getAttribute('content')) {
         return meta.getAttribute('content').replace(/\/$/, '');
       }
     }
-    if (typeof global !== 'undefined' && global.TASKFLOW_API_BASE) {
-      return String(global.TASKFLOW_API_BASE).replace(/\/$/, '');
+
+    // 3) Fallback: mismo origen
+    if (typeof global !== 'undefined' && global.location && global.location.origin) {
+      return `${global.location.origin}/api/v1`;
     }
+
+    // 4) Último fallback
     return 'http://localhost:3000/api/v1';
   }
 
