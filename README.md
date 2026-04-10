@@ -33,35 +33,7 @@ La aplicación es full-stack para la gestión de tareas con frontend web y backe
 - Deploy:
   - Vercel.
 
-## Estructura
-bootcamp-project/
-├── index.html
-├── app.js
-├── style.css
-├── api/
-│   └── index.js                 **Serverless function root para Vercel*
-├── src/
-│   └── api/
-│       └── client.js            **Capa de red del frontend*
-├── server/
-│   ├── src/
-│   │   ├── app.js               **App Express (middlewares + rutas)*
-│   │   ├── index.js             **Arranque local con app.listen*
-│   │   ├── config/
-│   │   │   └── env.js
-│   │   ├── routes/
-│   │   │   └── task.routes.js
-│   │   ├── controllers/
-│   │   │   └── task.controller.js
-│   │   └── services/
-│   │       └── task.service.js
-│   ├── postman/
-│   │   └── TaskFlow-Fase-C.postman_collection.json
-│   └── vercel.json              **Configuración de deploy backend si se usa root server*
-├── docs/
-│   └── backend-api.md
-└── vercel.json                  **Configuración de deploy full app en raíz*
-
+## Despligue
 ### Desarrollo local
 1. Backend:
    - `cd server`
@@ -81,7 +53,8 @@ bootcamp-project/
   - `/api/*` -> función Node (`api/index.js`).
   - resto -> frontend estático (`index.html`).
 
-**Pruebas:** Se comprueba que los botones funcionan correctamente:
+### Pruebas:
+Se comprueba que los botones funcionan correctamente:
 - Me permite eliminar las tareas
 - Generar nuevas tareas
 - Las tareas persisten después de actualizar la página web
