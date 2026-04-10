@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Base de la API REST (Fase D). Sobrescribe window.TASKFLOW_API_BASE si necesitas otro origen. -->
+    <meta name="taskflow-api-base" content="http://localhost:3000/api/v1">
     <title>TaskFlow - Listado de mis tareas</title>
     
     <!-- Tailwind CSS CDN -->
@@ -43,6 +45,20 @@
 
     <div class="absolute right-8 w-20 hidden"></div>
     </header>
+
+    <!-- Estados de red (Fase D): carga y errores HTTP / red -->
+    <div id="network-loading" class="hidden max-w-[95%] mx-auto px-6 pt-2" aria-live="polite" aria-busy="false">
+        <div class="flex items-center gap-3 rounded-lg border border-primary/30 bg-indigo-50 dark:bg-indigo-950/40 px-4 py-3 text-sm text-gray-800 dark:text-gray-100">
+            <span class="inline-block h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent" aria-hidden="true"></span>
+            <span>Sincronizando con el servidor…</span>
+        </div>
+    </div>
+    <div id="network-error" class="hidden max-w-[95%] mx-auto px-6 pt-2" role="alert" aria-live="assertive">
+        <div class="flex flex-col gap-2 rounded-lg border border-red-300 bg-red-50 dark:bg-red-950/40 dark:border-red-800 px-4 py-3 text-sm text-red-900 dark:text-red-100">
+            <p id="network-error-text" class="font-medium"></p>
+            <button type="button" id="network-error-dismiss" class="self-end rounded bg-red-600 px-3 py-1 text-white hover:bg-red-700 text-xs">Cerrar</button>
+        </div>
+    </div>
 
     <!-- Contenido Principal -->
     <main class="max-w-[95%] mx-auto p-6 flex flex-col gap-4">
@@ -124,7 +140,8 @@
         </div>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
+    <!-- Orden obligatorio: cliente API primero, luego la app (no usar type="module" si abres por file://). -->
+    <script src="src/api/client.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
