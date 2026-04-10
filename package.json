@@ -1,0 +1,13 @@
+{
+  "name": "taskflow-bootcamp",
+  "private": true,
+  "description": "TaskFlow: npm run dev arranca el API (carpeta server). npm start sirve el frontend (puerto 5173).",
+  "scripts": {
+    "dev": "npm run dev --prefix server",
+    "start": "serve . -l 5173",
+    "dev:front": "serve . -l 5173"
+  },
+  "devDependencies": {
+    "serve": "^14.2.4"
+  }
+}
