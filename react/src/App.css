@@ -1,0 +1,32 @@
+.app-shell {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: system-ui, sans-serif;
+}
+
+.muted {
+  color: #555;
+}
+
+.data-table table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.data-table th,
+.data-table td {
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+  text-align: left;
+}
+
+.data-table input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.data-table button {
+  margin-right: 0.35rem;
+}
